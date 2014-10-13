@@ -14,17 +14,22 @@ public class CalculatorTest {
 		assertEquals(0, calc.add(""));
 	}
 
-	    @Test
+	@Test
 	public void testOneNumber() {
 		Calculator calc = new Calculator();
 		assertEquals(4, calc.add("4"));
 		assertEquals(0, calc.add("0"));
 	}
-		    @Test
+	@Test
 	public void testTwoNumbers() {
 		Calculator calc = new Calculator();
 		assertEquals(9, calc.add("4,5"));
 		assertEquals(0, calc.add("0,0"));
 		assertEquals(0, calc.add("-4,4"));
+	}
+	@Test
+	public void testOnlyComma() {
+		Calculator calc = new Calculator();
+		assertEquals(0, calc.add(","));
 	}
 }
