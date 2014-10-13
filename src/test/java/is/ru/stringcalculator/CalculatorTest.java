@@ -27,6 +27,15 @@ public class CalculatorTest {
 		assertEquals(0, calc.add("0,0"));
 		assertEquals(0, calc.add("-4,4"));
 	}
+
+		@Test
+	public void testManyNumbers() {
+		Calculator calc = new Calculator();
+		assertEquals(6, calc.add("1,1,1,1,1,1"));
+		assertEquals(0, calc.add("0,0,0,0"));
+		assertEquals(6, calc.add("-4,4,5,1"));
+	}
+
 	@Test
 	public void testOnlyComma() {
 		Calculator calc = new Calculator();
@@ -46,6 +55,29 @@ public class CalculatorTest {
 		assertEquals(10, calc.add("5\n5"));
 		assertEquals(0, calc.add("0\n0"));
 		assertEquals(1, calc.add("0\n1"));
+		assertEquals(1, calc.add("1,\n"));
 	}
+
+	@Test
+	public void testCustomNewLineDelimiter() {
+		Calculator calc = new Calculator();
+		assertEquals(3, calc.add("//;\n1;2"));
+		assertEquals(7, calc.add("//;\n5;2"));
+		assertEquals(10, calc.add("//;\n5;2;3"));
+		assertEquals(10, calc.add("//&\n5&2&3"));
+		assertEquals(10, calc.add("//A\n5A2A3"));
+	}
+
+	@Test
+	public void testCustomDelimiterFunction() {
+		Calculator calc = new Calculator();
+		assertEquals(";", calc.customDelimiter("//;\n1;2"));
+		assertEquals(";", calc.customDelimiter("//;\n5;2"));
+		assertEquals(";", calc.customDelimiter("//;\n5;2;3"));
+		assertEquals("&", calc.customDelimiter("//&\n5&2&3"));
+		assertEquals("A", calc.customDelimiter("//A\n5A2A3"));
+	}
+
+
 
 }
