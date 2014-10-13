@@ -1,5 +1,6 @@
 package is.ru.stringcalculator;
 
+
 public class Calculator {
 	
 	private int toInt(String s) {
@@ -10,18 +11,17 @@ public class Calculator {
 		}
 	}
 
-	private String normalizeDelimiters(String s) {
-		return s.replaceAll("\\n", ",");
+	private String[] normalizeAndSplit(String numbers, String delimiter) {
+		
+		numbers = numbers.replaceAll("\\n", ",");
+		String[] intArr = numbers.split(delimiter);
+		return intArr;
 	}
 
-	private String[] splitString(String s, String c) {
-		return s.split(c);
-	}
-
-	public String customDelimiter(String s) {
-		if(s.length() < 2) { return null; }
-		if (s.substring(0,2).equals("//")) {
-			return s.substring(2,3);
+	public String customDelimiter(String numbers) {
+		if(numbers.length() < 2) { return null; }
+		if (numbers.substring(0,2).equals("//")) {
+			return numbers.substring(2,3);
 		}
 		return null;
 	}
@@ -31,13 +31,12 @@ public class Calculator {
 		String[] intArr;
 		// If it has a custom delimiter.
 		if (delimiter != null) {
-			// Remove the last line
+			// Remove the last line and split the numbers.
 			numbers = numbers.substring(4, numbers.length());
-			numbers = normalizeDelimiters(numbers);
-			intArr = splitString(numbers, delimiter);
+			intArr = normalizeAndSplit(numbers, delimiter);
 		} else {
-			numbers = normalizeDelimiters(numbers);
-			intArr = splitString(numbers, ",");
+			// Split the numbers normally.
+			intArr = normalizeAndSplit(numbers, ",");
 		}
 
 		int addedValue = 0;
