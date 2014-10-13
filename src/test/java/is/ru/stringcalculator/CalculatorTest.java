@@ -32,4 +32,12 @@ public class CalculatorTest {
 		Calculator calc = new Calculator();
 		assertEquals(0, calc.add(","));
 	}
+
+		@Test
+	public void testEmptyAfterComma() {
+		Calculator calc = new Calculator();
+		assertEquals(5, calc.add("5,"));
+		assertEquals(5, calc.add(",5"));
+	}
+
 }

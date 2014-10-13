@@ -4,18 +4,23 @@ public class Calculator {
 	
 	public int add(String numbers) {
 		String[] numberArr = numbers.split(",");
-		if (numberArr.length == 0 || numberArr[0] == "") {
-			return 0;
+		int addedValue = 0;
+
+		for(int i = 0; i < numberArr.length; i++) {
+			if (!numberArr[i].equals("")) {
+				addedValue += toInt(numberArr[i]);
+			}
 		}
 
-		if (numberArr.length == 2) {
-			return toInt(numberArr[0]) + toInt(numberArr[1]);
-		}
-
-		return toInt(numberArr[0]);
+		return addedValue;
 	}
 
 	private int toInt(String s) {
-		return Integer.parseInt(s);
+		if(s.equals("")) {
+			return 0;
+		} else {
+			return Integer.parseInt(s);
+		}
+		
 	}
 }
