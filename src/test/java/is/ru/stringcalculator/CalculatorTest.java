@@ -25,7 +25,7 @@ public class CalculatorTest {
 		Calculator calc = new Calculator();
 		assertEquals(9, calc.add("4,5"));
 		assertEquals(0, calc.add("0,0"));
-		assertEquals(0, calc.add("-4,4"));
+		assertEquals(8, calc.add("4,4"));
 	}
 
 		@Test
@@ -33,7 +33,7 @@ public class CalculatorTest {
 		Calculator calc = new Calculator();
 		assertEquals(6, calc.add("1,1,1,1,1,1"));
 		assertEquals(0, calc.add("0,0,0,0"));
-		assertEquals(6, calc.add("-4,4,5,1"));
+		assertEquals(14, calc.add("4,4,5,1"));
 	}
 
 	@Test
