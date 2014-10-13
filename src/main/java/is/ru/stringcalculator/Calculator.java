@@ -2,6 +2,10 @@ package is.ru.stringcalculator;
 
 public class Calculator {
 	public int add(String numbers) {
-		return 0;
+		String[] numberArr = numbers.split(",");
+		if(numberArr[0] == "") {
+			return 0;
+		}
+		return Integer.parseInt(numberArr[0]);
 	}
 }

@@ -13,4 +13,11 @@ public class CalculatorTest {
 		Calculator calc = new Calculator();
 		assertEquals(0, calc.add(""));
 	}
+
+	    @Test
+	public void testOneNumber() {
+		Calculator calc = new Calculator();
+		assertEquals(4, calc.add("4"));
+		assertEquals(0, calc.add("0"));
+	}
 }
