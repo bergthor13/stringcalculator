@@ -33,11 +33,19 @@ public class CalculatorTest {
 		assertEquals(0, calc.add(","));
 	}
 
-		@Test
+	@Test
 	public void testEmptyAfterComma() {
 		Calculator calc = new Calculator();
 		assertEquals(5, calc.add("5,"));
 		assertEquals(5, calc.add(",5"));
+	}
+
+	@Test
+	public void testNewLineDelimiter() {
+		Calculator calc = new Calculator();
+		assertEquals(10, calc.add("5\n5"));
+		assertEquals(0, calc.add("0\n0"));
+		assertEquals(1, calc.add("0\n1"));
 	}
 
 }

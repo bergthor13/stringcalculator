@@ -3,12 +3,13 @@ package is.ru.stringcalculator;
 public class Calculator {
 	
 	public int add(String numbers) {
-		String[] numberArr = numbers.split(",");
+		numbers = numbers.replaceAll("\\n", ",");
+		String[] commaArr = numbers.split(",");
 		int addedValue = 0;
 
-		for(int i = 0; i < numberArr.length; i++) {
-			if (!numberArr[i].equals("")) {
-				addedValue += toInt(numberArr[i]);
+		for(int i = 0; i < commaArr.length; i++) {
+			if (!commaArr[i].equals("")) {
+				addedValue += toInt(commaArr[i]);
 			}
 		}
 
@@ -21,6 +22,5 @@ public class Calculator {
 		} else {
 			return Integer.parseInt(s);
 		}
-		
 	}
 }
