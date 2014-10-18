@@ -8,14 +8,14 @@ public class CalculatorTest {
 	public static void main(String args[]) {
       org.junit.runner.JUnitCore.main("is.ru.stringcalculator.CalculatorTest");
     }
-   
+  
     @Test
 	public void testEmptyString() {
 		Calculator calc = new Calculator();
 		try {
 			assertEquals(0, calc.add(""));
-		} catch (Exception e) {
-
+		} catch (NegativeNumberException e) {
+			
 		}
 	}
 
@@ -23,9 +23,9 @@ public class CalculatorTest {
 	public void testOneNumber() {
 		Calculator calc = new Calculator();
 		try {
-			assertEquals(4, calc.add("4"));
+			assertEquals(6, calc.add("6"));
 			assertEquals(0, calc.add("0"));
-		} catch (Exception e) {
+		} catch (NegativeNumberException e) {
 
 		}
 	}
@@ -37,7 +37,7 @@ public class CalculatorTest {
 			assertEquals(9, calc.add("4,5"));
 			assertEquals(0, calc.add("0,0"));
 			assertEquals(8, calc.add("4,4"));
-		} catch (Exception e) {
+		} catch (NegativeNumberException e) {
 
 		}
 	}
@@ -49,17 +49,7 @@ public class CalculatorTest {
 			assertEquals(6, calc.add("1,1,1,1,1,1"));
 			assertEquals(0, calc.add("0,0,0,0"));
 			assertEquals(14, calc.add("4,4,5,1"));
-		} catch (Exception e) {
-
-		}
-	}
-
-	@Test
-	public void testOnlyComma() {
-		Calculator calc = new Calculator();
-		try {
-			assertEquals(0, calc.add(","));
-		} catch (Exception e) {
+		} catch (NegativeNumberException e) {
 
 		}
 	}
@@ -70,7 +60,7 @@ public class CalculatorTest {
 		try {
 			assertEquals(5, calc.add("5,"));
 			assertEquals(5, calc.add(",5"));
-		} catch (Exception e) {
+		} catch (NegativeNumberException e) {
 
 		}
 	}
@@ -83,7 +73,7 @@ public class CalculatorTest {
 			assertEquals(0, calc.add("0\n0"));
 			assertEquals(1, calc.add("0\n1"));
 			assertEquals(1, calc.add("1,\n"));
-		} catch (Exception e) {
+		} catch (NegativeNumberException e) {
 
 		}
 	}
@@ -97,24 +87,22 @@ public class CalculatorTest {
 			assertEquals(10, calc.add("//;\n5;2;3"));
 			assertEquals(10, calc.add("//&\n5&2&3"));
 			assertEquals(10, calc.add("//A\n5A2A3"));
-		} catch (Exception e) {
+		} catch (NegativeNumberException e) {
 
 		}
 	}
-
+/*
 	@Test
 	public void testCustomDelimiterFunction() {
 		Calculator calc = new Calculator();
-		try {
 			assertEquals(";", calc.customDelimiter("//;\n1;2"));
 			assertEquals(";", calc.customDelimiter("//;\n5;2"));
 			assertEquals(";", calc.customDelimiter("//;\n5;2;3"));
 			assertEquals("&", calc.customDelimiter("//&\n5&2&3"));
 			assertEquals("A", calc.customDelimiter("//A\n5A2A3"));
-		} catch (Exception e) {
 
-		}
 	}
+	*/
 
 	@Test
 	public void testNumbersLargerThanThousand() {
@@ -123,33 +111,44 @@ public class CalculatorTest {
 			assertEquals(25, calc.add("//A\n1001A25"));
 			assertEquals(2, calc.add("1001,2"));
 
-		} catch (Exception e) {
+		} catch (NegativeNumberException e) {
 
 		}
 	}
-
+/*
 	@Test
 	public void testLongerCustomDelimiterFunction() {
 		Calculator calc = new Calculator();
 		try {
 			assertEquals("AN", calc.customDelimiter("//[AN]\n5A2A3"));
 			assertEquals("ANANAS",  calc.customDelimiter("//[ANANAS]\n5AAA2AAA3"));
-		} catch (Exception e) {
+		} catch (NegativeNumberException e) {
 
 		}
-	}
+	}*/
 
 	@Test
-	public void testLongerCustomDelimiterFunction2() {
+	public void testLongerCustomDelimiter() {
 		Calculator calc = new Calculator();
 		try {
-			assertEquals(3, calc.add("//[Dd]\n1Dd2"));
+			//assertEquals(3, calc.add("//[Dd]\n1Dd2"));
 			assertEquals(10, calc.add("//[***]\n5***2***3"));
-		} catch (Exception e) {
+		} catch (NegativeNumberException e) {
 
 		}
 	}
 	
+	@Test
+	public void testMoreThanOneCustomDelimiter() {
+		Calculator calc = new Calculator();
+		try {
+			assertEquals(6, calc.add("//D\n1D2D3"));
+			assertEquals(7, calc.add("//[%][*]\n1*2%4"));
+		} catch (NegativeNumberException e) {
+
+		}
+	}
+
 	@Test
 	public void testNegativeNumberException() {
 		Calculator calc = new Calculator();
@@ -159,7 +158,7 @@ public class CalculatorTest {
 			assertEquals("Negatives not allowed: -1,-7", e.getMessage());
 		}
 	}
-	
+
 }
 
 
