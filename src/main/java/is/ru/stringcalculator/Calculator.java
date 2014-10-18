@@ -14,21 +14,23 @@ public class Calculator {
 
 	private String[] normalizeAndSplit(String numbers, String[] delimiters) {
 		
-		// If this has a custom delimiter cut it out.
 		if (numbers.length() < 2) {
-			String[] drasl = new String[1];
-			drasl[0] = numbers;
-			return drasl;
+			String[] singleNumber = new String[1];
+			singleNumber[0] = numbers;
+			return singleNumber;
 		}
+		// If this has a custom delimiter cut it out.
 		if(numbers.substring(0,2).equals("//")) {
+			// Cut out.
 			numbers = numbers.substring(numbers.indexOf("\n")+1, numbers.length());
-			
+			// Replace all delimiters with commas.
 			for (int i = 0; i<delimiters.length; i++) {
 				numbers = numbers.replaceAll(delimiters[i], ",");
 			}
 		}
 
 		numbers = numbers.replaceAll("\\n", ",");
+		// Then split by commas.
 		String[] intArr = numbers.split(",");
 		return intArr;
 	}
@@ -48,15 +50,15 @@ public class Calculator {
 			// If the delimiter is longer or has multiple delimiters.
 			if(onlyDelLine.substring(0,1).equals("[") && (onlyDelLine.substring(onlyDelLine.length()-1,onlyDelLine.length()).equals("]"))) {
 					onlyDelLine = onlyDelLine.substring(1, onlyDelLine.length()-1);
-					String[] drasl = onlyDelLine.split(Pattern.quote("]["));
-					for (int i = 0; i < drasl.length; i++) {
-						drasl[i] = Pattern.quote(drasl[i]);
+					String[] splittedDelimiters = onlyDelLine.split(Pattern.quote("]["));
+					for (int i = 0; i < splittedDelimiters.length; i++) {
+						splittedDelimiters[i] = Pattern.quote(splittedDelimiters[i]);
 					}
-					return drasl;
+					return splittedDelimiters;
 			} else {
-				String[] drasl2 = new String[1];
-				drasl2[0] = onlyDelLine.substring(0,1);
-				return drasl2;
+				String[] oneDelimiter = new String[1];
+				oneDelimiter[0] = onlyDelLine.substring(0,1);
+				return oneDelimiter;
 			}
 		}
 		return new String[0];
