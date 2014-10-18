@@ -49,8 +49,11 @@ public class Calculator {
 			String onlyDelLine = new String(numbers.substring(2, numbers.indexOf("\n")));
 			// If the delimiter is longer or has multiple delimiters.
 			if(onlyDelLine.substring(0,1).equals("[") && (onlyDelLine.substring(onlyDelLine.length()-1,onlyDelLine.length()).equals("]"))) {
+
 					onlyDelLine = onlyDelLine.substring(1, onlyDelLine.length()-1);
+					// Split the deliminators.
 					String[] splittedDelimiters = onlyDelLine.split(Pattern.quote("]["));
+					// Go through all delimiters and escape them from RegEx.
 					for (int i = 0; i < splittedDelimiters.length; i++) {
 						splittedDelimiters[i] = Pattern.quote(splittedDelimiters[i]);
 					}
