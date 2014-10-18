@@ -1,5 +1,7 @@
 package is.ru.stringcalculator;
 import java.util.ArrayList;
+import java.util.regex.*;
+import java.io.*;
 public class Calculator {
 	
 	private int toInt(String s) {
@@ -12,15 +14,30 @@ public class Calculator {
 
 	private String[] normalizeAndSplit(String numbers, String delimiter) {
 		
+		// If this has a custom delimiter cut it out.
+		if(numbers.substring(0,2).equals("//")) {
+			numbers = numbers.substring(numbers.indexOf("\n")+1, numbers.length());
+		}
+
 		numbers = numbers.replaceAll("\\n", ",");
-		String[] intArr = numbers.split(delimiter);
+		String[] intArr = numbers.split(Pattern.quote(delimiter));
 		return intArr;
 	}
 
 	public String customDelimiter(String numbers) {
+		String delimiter = new String();
+
 		if(numbers.length() < 2) { return null; }
+
 		if (numbers.substring(0,2).equals("//")) {
-			return numbers.substring(2,3);
+			String onlyDelLine = new String(numbers.substring(2, numbers.indexOf("\n")));
+			if(onlyDelLine.substring(0,1).equals("[")) {
+
+				delimiter = onlyDelLine.substring(1,onlyDelLine.indexOf("]"));
+				return delimiter;
+			}
+
+			return onlyDelLine;
 		}
 		return null;
 	}
@@ -40,35 +57,30 @@ public class Calculator {
 	public int add(String numbers) throws NegativeNumberException{
 		String delimiter = customDelimiter(numbers);
 		String[] intArr;
-		ArrayList negativeNumbers = new ArrayList();
+		ArrayList<Integer> negativeNumbers = new ArrayList<Integer>();
 		// The total value
 		int addedValue = 0;
 		boolean hasNegativeNumber = false;
 		// If it has a custom delimiter.
 		if (delimiter != null) {
-			// Remove the last line and split the numbers.
-			numbers = numbers.substring(4, numbers.length());
+			// Split the numbers with the delimiter.
 			intArr = normalizeAndSplit(numbers, delimiter);
 		} else {
 			// Split the numbers normally.
 			intArr = normalizeAndSplit(numbers, ",");
 		}
-
 		// Go through all of the numbers in
 		// 'intArr' and add them together.
 		int currentValue = 0;
 		for(int i = 0; i < intArr.length; i++) {
-
 			// If this is a number add it.
 			if (!intArr[i].equals("")) {
 				// Convert string to integer.
 				currentValue = toInt(intArr[i]);
-
 				// Checking if number is over 1000.
 				if (!(currentValue > 1000)) {
 					addedValue += currentValue;
 				}
-
 				// Checking if number is negative.
 				// If it is, add it to a list for the
 				// exception to be thrown.
@@ -87,3 +99,21 @@ public class Calculator {
 		return addedValue;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,6 +1,6 @@
 package is.ru.stringcalculator;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class CalculatorTest {
@@ -8,6 +8,7 @@ public class CalculatorTest {
 	public static void main(String args[]) {
       org.junit.runner.JUnitCore.main("is.ru.stringcalculator.CalculatorTest");
     }
+   
     @Test
 	public void testEmptyString() {
 		Calculator calc = new Calculator();
@@ -28,6 +29,7 @@ public class CalculatorTest {
 
 		}
 	}
+	
 	@Test
 	public void testTwoNumbers() {
 		Calculator calc = new Calculator();
@@ -40,7 +42,7 @@ public class CalculatorTest {
 		}
 	}
 
-		@Test
+	@Test
 	public void testManyNumbers() {
 		Calculator calc = new Calculator();
 		try {
@@ -114,7 +116,41 @@ public class CalculatorTest {
 		}
 	}
 
-		@Test
+	@Test
+	public void testNumbersLargerThanThousand() {
+		Calculator calc = new Calculator();
+		try {
+			assertEquals(25, calc.add("//A\n1001A25"));
+			assertEquals(2, calc.add("1001,2"));
+
+		} catch (Exception e) {
+
+		}
+	}
+
+	@Test
+	public void testLongerCustomDelimiterFunction() {
+		Calculator calc = new Calculator();
+		try {
+			assertEquals("AN", calc.customDelimiter("//[AN]\n5A2A3"));
+			assertEquals("ANANAS",  calc.customDelimiter("//[ANANAS]\n5AAA2AAA3"));
+		} catch (Exception e) {
+
+		}
+	}
+
+	@Test
+	public void testLongerCustomDelimiterFunction2() {
+		Calculator calc = new Calculator();
+		try {
+			assertEquals(3, calc.add("//[Dd]\n1Dd2"));
+			assertEquals(10, calc.add("//[***]\n5***2***3"));
+		} catch (Exception e) {
+
+		}
+	}
+	
+	@Test
 	public void testNegativeNumberException() {
 		Calculator calc = new Calculator();
 		try {
@@ -123,18 +159,7 @@ public class CalculatorTest {
 			assertEquals("Negatives not allowed: -1,-7", e.getMessage());
 		}
 	}
-
-		@Test
-	public void testNumbersLargerThanThousand() {
-		Calculator calc = new Calculator();
-		try {
-			assertEquals(2, calc.add("1001,2"));
-			assertEquals(25, calc.add("1001,25"));
-			assertEquals(25, calc.add("//$\n10019$25"));
-		} catch (Exception e) {
-
-		}
-	}
+	
 }
 
 
