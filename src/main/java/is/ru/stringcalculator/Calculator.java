@@ -25,6 +25,18 @@ public class Calculator {
 		return null;
 	}
 
+	private void throwNegativeException(ArrayList numbers) throws NegativeNumberException {
+			String exMessage = "Negatives not allowed: ";
+			for (int i = 0; i<numbers.size(); i++) {
+				if (i == numbers.size()-1) {
+					exMessage += numbers.get(i);
+				} else {
+					exMessage += numbers.get(i) + ",";
+				}
+			}
+			throw new NegativeNumberException(exMessage);
+	}
+
 	public int add(String numbers) throws NegativeNumberException{
 		String delimiter = customDelimiter(numbers);
 		String[] intArr;
@@ -46,28 +58,32 @@ public class Calculator {
 		// 'intArr' and add them together.
 		int currentValue = 0;
 		for(int i = 0; i < intArr.length; i++) {
-			currentValue = toInt(intArr[i]);
+
+			// If this is a number add it.
 			if (!intArr[i].equals("")) {
+				// Convert string to integer.
+				currentValue = toInt(intArr[i]);
+
+				// Checking if number is over 1000.
 				if (!(currentValue > 1000)) {
 					addedValue += currentValue;
 				}
+
+				// Checking if number is negative.
+				// If it is, add it to a list for the
+				// exception to be thrown.
 				if (currentValue < 0) {
 					negativeNumbers.add(currentValue);
 					hasNegativeNumber = true;
 				}
 			}
 		}
+		// If the string contains negative numbers,
+		// throw the exception.
 		if (hasNegativeNumber) {
-			String exMessage = "Negatives not allowed: ";
-			for (int i = 0; i<negativeNumbers.size(); i++) {
-				if (i == negativeNumbers.size()-1) {
-					exMessage += negativeNumbers.get(i);
-				} else {
-					exMessage += negativeNumbers.get(i) + ",";
-				}
-			}
-			throw new NegativeNumberException(exMessage);
+			throwNegativeException(negativeNumbers);
 		}
+		// Else return the sum.
 		return addedValue;
 	}
 }
