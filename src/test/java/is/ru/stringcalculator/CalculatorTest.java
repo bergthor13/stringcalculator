@@ -123,4 +123,36 @@ public class CalculatorTest {
 			assertEquals("Negatives not allowed: -1,-7", e.getMessage());
 		}
 	}
+
+		@Test
+	public void testNumbersLargerThanThousand() {
+		Calculator calc = new Calculator();
+		try {
+			assertEquals(2, calc.add("1001,2"));
+			assertEquals(25, calc.add("1001,25"));
+			assertEquals(25, calc.add("//$\n10019$25"));
+		} catch (Exception e) {
+
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -48,7 +48,9 @@ public class Calculator {
 		for(int i = 0; i < intArr.length; i++) {
 			currentValue = toInt(intArr[i]);
 			if (!intArr[i].equals("")) {
-				addedValue += currentValue;
+				if (!(currentValue > 1000)) {
+					addedValue += currentValue;
+				}
 				if (currentValue < 0) {
 					negativeNumbers.add(currentValue);
 					hasNegativeNumber = true;
