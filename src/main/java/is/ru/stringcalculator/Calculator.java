@@ -1,6 +1,5 @@
 package is.ru.stringcalculator;
-
-
+import java.util.ArrayList;
 public class Calculator {
 	
 	private int toInt(String s) {
@@ -26,9 +25,13 @@ public class Calculator {
 		return null;
 	}
 
-	public int add(String numbers) {
+	public int add(String numbers) throws NegativeNumberException{
 		String delimiter = customDelimiter(numbers);
 		String[] intArr;
+		ArrayList negativeNumbers = new ArrayList();
+		// The total value
+		int addedValue = 0;
+		boolean hasNegativeNumber = false;
 		// If it has a custom delimiter.
 		if (delimiter != null) {
 			// Remove the last line and split the numbers.
@@ -39,14 +42,30 @@ public class Calculator {
 			intArr = normalizeAndSplit(numbers, ",");
 		}
 
-		int addedValue = 0;
-
+		// Go through all of the numbers in
+		// 'intArr' and add them together.
+		int currentValue = 0;
 		for(int i = 0; i < intArr.length; i++) {
+			currentValue = toInt(intArr[i]);
 			if (!intArr[i].equals("")) {
-				addedValue += toInt(intArr[i]);
+				addedValue += currentValue;
+				if (currentValue < 0) {
+					negativeNumbers.add(currentValue);
+					hasNegativeNumber = true;
+				}
 			}
 		}
-
+		if (hasNegativeNumber) {
+			String exMessage = "Negatives not allowed: ";
+			for (int i = 0; i<negativeNumbers.size(); i++) {
+				if (i == negativeNumbers.size()-1) {
+					exMessage += negativeNumbers.get(i);
+				} else {
+					exMessage += negativeNumbers.get(i) + ",";
+				}
+			}
+			throw new NegativeNumberException(exMessage);
+		}
 		return addedValue;
 	}
 }

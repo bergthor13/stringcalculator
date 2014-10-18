@@ -1,0 +1,6 @@
+#!/bin/bash
+
+git add src/main/java/is/ru/stringcalculator/Calculator.java src/test/java/is/ru/stringcalculator/CalculatorTest.java 
+git add src/main/java/is/ru/stringcalculator/Calculator.java src/main/java/is/ru/stringcalculator/Calculator.java
+git add bin/add_changes
+git add src/main/java/is/ru/stringcalculator/NegativeNumberException.java

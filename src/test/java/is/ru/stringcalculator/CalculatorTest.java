@@ -11,73 +11,116 @@ public class CalculatorTest {
     @Test
 	public void testEmptyString() {
 		Calculator calc = new Calculator();
-		assertEquals(0, calc.add(""));
+		try {
+			assertEquals(0, calc.add(""));
+		} catch (Exception e) {
+
+		}
 	}
 
 	@Test
 	public void testOneNumber() {
 		Calculator calc = new Calculator();
-		assertEquals(4, calc.add("4"));
-		assertEquals(0, calc.add("0"));
+		try {
+			assertEquals(4, calc.add("4"));
+			assertEquals(0, calc.add("0"));
+		} catch (Exception e) {
+
+		}
 	}
 	@Test
 	public void testTwoNumbers() {
 		Calculator calc = new Calculator();
-		assertEquals(9, calc.add("4,5"));
-		assertEquals(0, calc.add("0,0"));
-		assertEquals(8, calc.add("4,4"));
+		try {
+			assertEquals(9, calc.add("4,5"));
+			assertEquals(0, calc.add("0,0"));
+			assertEquals(8, calc.add("4,4"));
+		} catch (Exception e) {
+
+		}
 	}
 
 		@Test
 	public void testManyNumbers() {
 		Calculator calc = new Calculator();
-		assertEquals(6, calc.add("1,1,1,1,1,1"));
-		assertEquals(0, calc.add("0,0,0,0"));
-		assertEquals(14, calc.add("4,4,5,1"));
+		try {
+			assertEquals(6, calc.add("1,1,1,1,1,1"));
+			assertEquals(0, calc.add("0,0,0,0"));
+			assertEquals(14, calc.add("4,4,5,1"));
+		} catch (Exception e) {
+
+		}
 	}
 
 	@Test
 	public void testOnlyComma() {
 		Calculator calc = new Calculator();
-		assertEquals(0, calc.add(","));
+		try {
+			assertEquals(0, calc.add(","));
+		} catch (Exception e) {
+
+		}
 	}
 
 	@Test
 	public void testEmptyAfterComma() {
 		Calculator calc = new Calculator();
-		assertEquals(5, calc.add("5,"));
-		assertEquals(5, calc.add(",5"));
+		try {
+			assertEquals(5, calc.add("5,"));
+			assertEquals(5, calc.add(",5"));
+		} catch (Exception e) {
+
+		}
 	}
 
 	@Test
 	public void testNewLineDelimiter() {
 		Calculator calc = new Calculator();
-		assertEquals(10, calc.add("5\n5"));
-		assertEquals(0, calc.add("0\n0"));
-		assertEquals(1, calc.add("0\n1"));
-		assertEquals(1, calc.add("1,\n"));
+		try {
+			assertEquals(10, calc.add("5\n5"));
+			assertEquals(0, calc.add("0\n0"));
+			assertEquals(1, calc.add("0\n1"));
+			assertEquals(1, calc.add("1,\n"));
+		} catch (Exception e) {
+
+		}
 	}
 
 	@Test
 	public void testCustomNewLineDelimiter() {
 		Calculator calc = new Calculator();
-		assertEquals(3, calc.add("//;\n1;2"));
-		assertEquals(7, calc.add("//;\n5;2"));
-		assertEquals(10, calc.add("//;\n5;2;3"));
-		assertEquals(10, calc.add("//&\n5&2&3"));
-		assertEquals(10, calc.add("//A\n5A2A3"));
+		try {
+			assertEquals(3, calc.add("//;\n1;2"));
+			assertEquals(7, calc.add("//;\n5;2"));
+			assertEquals(10, calc.add("//;\n5;2;3"));
+			assertEquals(10, calc.add("//&\n5&2&3"));
+			assertEquals(10, calc.add("//A\n5A2A3"));
+		} catch (Exception e) {
+
+		}
 	}
 
 	@Test
 	public void testCustomDelimiterFunction() {
 		Calculator calc = new Calculator();
-		assertEquals(";", calc.customDelimiter("//;\n1;2"));
-		assertEquals(";", calc.customDelimiter("//;\n5;2"));
-		assertEquals(";", calc.customDelimiter("//;\n5;2;3"));
-		assertEquals("&", calc.customDelimiter("//&\n5&2&3"));
-		assertEquals("A", calc.customDelimiter("//A\n5A2A3"));
+		try {
+			assertEquals(";", calc.customDelimiter("//;\n1;2"));
+			assertEquals(";", calc.customDelimiter("//;\n5;2"));
+			assertEquals(";", calc.customDelimiter("//;\n5;2;3"));
+			assertEquals("&", calc.customDelimiter("//&\n5&2&3"));
+			assertEquals("A", calc.customDelimiter("//A\n5A2A3"));
+		} catch (Exception e) {
+
+		}
 	}
 
-
-
+		@Test
+	public void testNegativeNumberException() {
+		Calculator calc = new Calculator();
+		try {
+			calc.add("-1,-7,6,3");
+		} catch (NegativeNumberException e) {
+			assertEquals("Negatives not allowed: -1,-7", e.getMessage());
+		}
+	}
 }
