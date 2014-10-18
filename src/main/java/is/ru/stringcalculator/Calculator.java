@@ -35,7 +35,11 @@ public class Calculator {
 
 	public String[] customDelimiter(String numbers) {
 
-		if(numbers.length() < 2) { return new String[0]; }
+		if(numbers.length() < 2) { 
+			String[] commaDelimiter = new String[1];
+			commaDelimiter[0] = ",";
+			return commaDelimiter; 
+		}
 
 		// If it has a custom delimiter.
 		if (numbers.substring(0,2).equals("//")) {
@@ -52,7 +56,6 @@ public class Calculator {
 			} else {
 				String[] drasl2 = new String[1];
 				drasl2[0] = onlyDelLine.substring(0,1);
-				System.out.println("RETURNING!:" + onlyDelLine.substring(0,1) + ":THIS");
 				return drasl2;
 			}
 		}
@@ -72,25 +75,30 @@ public class Calculator {
 	}
 
 	public int add(String numbers) throws NegativeNumberException{
-		String[] delimiters = customDelimiter(numbers);
-		String[] intArr;
-		ArrayList<Integer> negativeNumbers = new ArrayList<Integer>();
+
+		// VARIABLES
+		//===============================================================
+		// All of the delimiters, if there are any.
+			String[] delimiters = customDelimiter(numbers);
+		// The list of numbers to be added together.
+			String[] intArr;
+		// A list that holds the negative numbers.
+			ArrayList<Integer> negativeNumbers = new ArrayList<Integer>();
 		// The total value
-		int addedValue = 0;
-		boolean hasNegativeNumber = false;
-		// If it has a custom delimiter.
-		if (delimiters.length > 0) {
-			// Split the numbers with the delimiter.
-			intArr = normalizeAndSplit(numbers, delimiters);
-		} else {
-			// Split the numbers normally.
-			String[] drasl = new String[1];
-			drasl[0] = ",";
-			intArr = normalizeAndSplit(numbers, drasl);
-		}
+			int addedValue = 0;
+		// The current value when iterating
+		// through the array.
+			int currentValue = 0;
+		// A flag that indicates if the string
+		// has negative numbers.
+			boolean hasNegativeNumber = false;
+		//===============================================================
+		
+		// Split the string into numbers.
+		intArr = normalizeAndSplit(numbers, delimiters);
+		
 		// Go through all of the numbers in
 		// 'intArr' and add them together.
-		int currentValue = 0;
 		for(int i = 0; i < intArr.length; i++) {
 			// If this is a number add it.
 			if (!intArr[i].equals("")) {
@@ -116,6 +124,7 @@ public class Calculator {
 		}
 		// Else return the sum.
 		return addedValue;
+
 	}
 }
 
